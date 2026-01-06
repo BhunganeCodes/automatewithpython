@@ -1,24 +1,26 @@
 # Implementing Luo Shu Square Algorithm
 
-luoshu = [[4,9,2],[3,5,7],[8,1,6]]
+if __name__ == "__main__":
 
-def verifysquare(square):
-    sums = []
-    rowsums = [sum(square[i]) for i in range(0,len(square))]
-    sums.append(rowsums)
+    luoshu = [[4,9,2],[3,5,7],[8,1,6]]
 
-    colsums = [sum([row[i] for row in square]) for i in
-    range(0,len(square))]
-    sums.append(colsums)
+    def verifysquare(square):
+        sums = []
+        rowsums = [sum(square[i]) for i in range(0,len(square))]
+        sums.append(rowsums)
 
-    maindiag = sum([square[i][i] for i in range(0,len(square))])
-    sums.append([maindiag])
+        colsums = [sum([row[i] for row in square]) for i in
+        range(0,len(square))]
+        sums.append(colsums)
 
-    antidiag = sum([square[i][len(square) - 1 - i] for i in range(0,len(square))])
-    sums.append([antidiag])
-    
-    flattened = [j for i in sums for j in i]
-    return(len(list(set(flattened))) == 1)
+        maindiag = sum([square[i][i] for i in range(0,len(square))])
+        sums.append([maindiag])
+
+        antidiag = sum([square[i][len(square) - 1 - i] for i in range(0,len(square))])
+        sums.append([antidiag])
+
+        flattened = [j for i in sums for j in i]
+        return(len(list(set(flattened))) == 1)
 
 
-print(verifysquare(luoshu))
+    print(verifysquare(luoshu))

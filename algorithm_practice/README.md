@@ -25,3 +25,10 @@
  *Luo Shu Square*
 
  ```
+ 1. Solving a magic square in n*n square using Luo Shu Algorithm
+ ```
+
+ *Kurushima's Algorithm*
+ ```
+ 1. Solving the n*n magic square using Kurushima's algorithm
+ ```

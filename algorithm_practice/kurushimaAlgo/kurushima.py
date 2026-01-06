@@ -2,6 +2,26 @@
 import math
 import random
 
+def verifysquare(square):
+    sums = []
+    rowsums = [sum(square[i]) for i in range(0,len(square))]
+    sums.append(rowsums)
+
+    colsums = [sum([row[i] for row in square]) for i in
+    range(0,len(square))]
+    sums.append(colsums)
+
+    maindiag = sum([square[i][i] for i in range(0,len(square))])
+    sums.append([maindiag])
+
+    antidiag = sum([square[i][len(square) - 1 - i] for i in range(0,len(square))])
+    sums.append([antidiag])
+
+    flattened = [j for i in sums for j in i]
+    return(len(list(set(flattened))) == 1)
+
+
+
 n = 7
 square = [[float('nan') for i in range(0, n)] for j in range(0, n)]
 
@@ -37,50 +57,71 @@ def rule3(x,n,upleft):
 entry_i = center_i
 entry_j = center_j
 where_we_can_go = ['up_left','up_right','down_left','down_right']
-where_to_go = random.choice(where_we_can_go)
 
-# Populating where to go based on direction
-if(where_to_go == 'up_right'):
-    new_entry_i = entry_i - 1
-    new_entry_j = entry_j + 1
-    square[new_entry_i][new_entry_j] = rule1(square[entry_i]
-    [entry_j],n,True)
 
-if(where_to_go == 'down_left'):
-    new_entry_i = entry_i + 1
-    new_entry_j = entry_j - 1
-    square[new_entry_i][new_entry_j] = rule1(square[entry_i][entry_j],n,False)
 
-if (where_to_go == 'up_left'):
-    new_entry_i = entry_i - 1
-    new_entry_j = entry_j - 1
-    square[new_entry_i][new_entry_j] = rule2(square[entry_i][entry_j],n,True)
+# Putting it all together
+def fillsquare(square, entry_i, entry_j, howfull):
+    while (sum(math.isnan(i) for row in square for i in row) > howfull):
+        where_we_can_go = []
 
-if (where_to_go == 'down_right'):
-    new_entry_i = entry_i + 1
-    new_entry_j = entry_j + 1
-    square[new_entry_i][new_entry_j] = rule2(square[entry_i][entry_j],n,False)
+        if(entry_i < (n - 1) and entry_j < (n - 1)):
+            where_we_can_go.append('down_right')
 
-if (where_to_go == 'up_left' and (entry_i + entry_j) == (n)):
-    new_entry_i = entry_i - 1
-    new_entry_j = entry_j - 1
-    square[new_entry_i][new_entry_j] = rule3(square[entry_i][entry_j],n,True)
+        if(entry_i < (n - 1) and entry_j > 0):
+            where_we_can_go.append('down_left')
 
-if (where_to_go == 'down_right' and (entry_i + entry_j) == (n-2)):
-    new_entry_i = entry_i + 1
-    new_entry_j = entry_j + 1
-    square[new_entry_i][new_entry_j] = rule3(square[entry_i][entry_j],n,False)
+        if(entry_i > 0 and entry_j < (n - 1)):
+            where_we_can_go.append('up_right')
 
-where_we_can_go = []
+        if(entry_i > 0 and entry_j > 0):
+            where_we_can_go.append('up_left')
+        
+        where_to_go = random.choice(where_we_can_go)
+        if(where_to_go == 'up_right'):
+            new_entry_i = entry_i - 1
+            new_entry_j = entry_j + 1
+            square[new_entry_i][new_entry_j] = rule1(square[entry_i][entry_j],n,True)
 
-if(entry_i < (n - 1) and entry_j < (n - 1)):
-    where_we_can_go.append('down_right')
+        if(where_to_go == 'down_left'):
+            new_entry_i = entry_i + 1
+            new_entry_j = entry_j - 1
+            square[new_entry_i][new_entry_j] = rule1(square[entry_i][entry_j],n,False)
 
-if(entry_i < (n - 1) and entry_j > 0):
-    where_we_can_go.append('down_left')
+        if (where_to_go == 'up_left'):
+            new_entry_i = entry_i - 1
+            new_entry_j = entry_j - 1
+            square[new_entry_i][new_entry_j] = rule2(square[entry_i][entry_j],n,True)
 
-if(entry_i > 0 and entry_j < (n - 1)):
-   where_we_can_go.append('up_right')
-   
-if(entry_i > 0 and entry_j > 0):
-    where_we_can_go.append('up_left')
+        if (where_to_go == 'down_right'):
+            new_entry_i = entry_i + 1
+            new_entry_j = entry_j + 1
+            square[new_entry_i][new_entry_j] = rule2(square[entry_i][entry_j],n,False)
+
+        if (where_to_go == 'up_left' and (entry_i + entry_j) == (n)):
+            new_entry_i = entry_i - 1
+            new_entry_j = entry_j - 1
+            square[new_entry_i][new_entry_j] = rule3(square[entry_i][entry_j],n,True)
+
+        if (where_to_go == 'down_right' and (entry_i + entry_j) == (n-2)):
+            new_entry_i = entry_i + 1
+            new_entry_j = entry_j + 1
+            square[new_entry_i][new_entry_j] = rule3(square[entry_i][entry_j],n,False)
+        
+        entry_i = new_entry_i
+        entry_j = new_entry_j
+    return square
+
+# This fills out only half the square in diagonals, similar to that of a checkers board
+entry_i = math.floor(n/2)
+entry_j = math.floor(n/2)
+square = fillsquare(square,entry_i,entry_j,(n**2)/2 - 4)
+# printsquare(square)
+
+# This fill out the remaining squares on magic square
+entry_i = math.floor(n/2) + 1
+entry_j = math.floor(n/2)
+square = fillsquare(square,entry_i,entry_j,0)
+# printsquare(square)
+square=[[n**2 if x == 0 else x for x in row] for row in square]
+verifysquare(square)
