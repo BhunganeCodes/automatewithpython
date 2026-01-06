@@ -13,4 +13,4 @@ def gcd(x, y):
     if remainder != 0:
         return (gcd(smaller, remainder))
     
-print(gcd(89, 59))
+print(gcd(105, 33))

@@ -12,4 +12,16 @@
 
 *Russian Peasants Method (RPM)*
 
-> 1. Simple RPM in Python.
+```
+ 1. Simple RPM in Python.
+ ```
+
+ *Euclid's Algorithm*
+
+ ```
+ 1. Detterming the Greatest Common Divisor (GCD) Using Recursion and Euclid's Algorithm
+ ```
+
+ *Luo Shu Square*
+
+ ```
