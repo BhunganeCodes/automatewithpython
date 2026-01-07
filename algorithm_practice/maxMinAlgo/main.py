@@ -33,9 +33,42 @@ while keep_going:
     rate_change = step_size * revenue_derivative(current_rate)
     current_rate += rate_change
 
-    if abs(rate_change) < rate_change:
+    if abs(rate_change) < threshold:
         keep_going = False
     if iterations >= maximum_iterations:
         keep_going = False
     iterations += 1
-print(current_rate) 
+
+# Implementing minimization by "flipping" a function
+
+def revenue_flipped(tax):
+    return (0 - revenue(tax))
+
+xs = [x/1000 for x in range(1001)]
+ys = [revenue_flipped(x) for x in xs]
+
+plt.plot(xs, ys)
+plt.title("Tax/Revenue Curve - Flipped")
+plt.xlabel("Current Tax Rate")
+plt.ylabel("Revenue - Flipped")
+plt.show()
+
+# Gradient Descent 
+def revenue_derivative_flipped(tax):
+    return (0 - revenue_derivative(tax))
+
+threshold = 0.0001
+maximum_iterations = 100000
+
+current_rate = 0.7
+keep_going = True
+iterations = 0
+while keep_going:
+    rate_change = step_size * revenue_derivative_flipped(current_rate)
+    current_rate -= rate_change
+
+    if abs(rate_change) < threshold:
+        keep_going = False
+    if iterations >= maximum_iterations:
+        keep_going = False
+    iterations += 1
