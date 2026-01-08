@@ -25,4 +25,27 @@ def insertion_sort(cabinet):
 oldcabinet = [8,4,6,1,2,5,3,7]
 stepcounter = 0
 sorted_cabinet = insertion_sort(oldcabinet)
-print(stepcounter)
+
+# Create function to count steps and generate random, unordered list of numbers
+import random
+
+def check_steps(size_of_cabinet):
+    global stepcounter
+    stepcounter = 0
+    cabinet = [int(1000 * random.random()) for _ in range(size_of_cabinet)]
+    sorted_cabinet = insertion_sort(cabinet)
+    return stepcounter
+
+# Let's create a list of random numbers between 1 and 100
+random.seed(5040)
+xs = list(range(1, 100))
+ys =[check_steps(x) for x in xs]
+
+# Visualize the data
+import matplotlib.pyplot as plt
+
+plt.plot(xs, ys)
+plt.title("Steps Required for Inserion Sort for Random Cabinets")
+plt.xlabel("Number of Files in Random Cabinet")
+plt.ylabel("Steps Required to Sort Cabinet - Insertion Sort")
+plt.show()
