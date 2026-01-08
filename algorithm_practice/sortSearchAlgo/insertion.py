@@ -16,7 +16,6 @@ cabinet = [1, 2, 3, 3, 6, 8, 12]
 new_cabinet = insert_cabinet(cabinet, 5)
 
 # Using Insertion Sort Algo - Old, Unsorted Cabinet to New Sorted Cabinet
-oldcabinet = [8,4,6,1,2,5,3,7]
 
 def insertion_sort(cabinet):
     newcabinet = []
@@ -25,5 +24,12 @@ def insertion_sort(cabinet):
         newcabinet = insert_cabinet(newcabinet, to_insert)
     return newcabinet
 
+# Timing how fast the algorithm is
+from timeit import default_timer as timer
+
+start = timer()
+oldcabinet = [8,4,6,1,2,5,3,7]
 sorted_cabinet = insertion_sort(oldcabinet)
-print(sorted_cabinet)
+end = timer()
+# print(sorted_cabinet)
+print(end - start)
