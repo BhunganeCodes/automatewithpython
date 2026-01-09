@@ -33,4 +33,7 @@ def mergesort_two_elements(cabinet):
     else:
         left = cabinet[:math.floor(len(cabinet) / 2)]
         right = cabinet[math.floor(len(cabinet) / 2):]
+        new_cabinet = merge(left, right)
     return new_cabinet
+
+print(mergesort_two_elements([3, 1]))
