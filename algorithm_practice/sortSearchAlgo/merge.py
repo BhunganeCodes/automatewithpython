@@ -22,4 +22,15 @@ def merge(left, right):
 left = [1, 3, 4, 4, 5, 7, 8, 9]
 right = [2, 4, 6, 7, 8, 8, 10, 12, 13, 14]
 newcab = merge(left, right)
-print(newcab)
+
+# Merge to Sort
+import math
+
+def mergesort_two_elements(cabinet):
+    new_cabinet = []
+    if len(cabinet) == 1:
+        new_cabinet = cabinet
+    else:
+        left = cabinet[:math.floor(len(cabinet) / 2)]
+        right = cabinet[math.floor(len(cabinet) / 2):]
+    return new_cabinet
