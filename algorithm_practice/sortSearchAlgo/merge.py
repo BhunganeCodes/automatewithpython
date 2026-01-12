@@ -46,5 +46,13 @@ def mergesort_four_elements(cabinet):
         new_cabinet = merge(left, right)
     return new_cabinet
 
-cabinet = [2, 6, 4, 1]
-print(mergesort_four_elements(cabinet))
+# Implementing Merge Sort with Recursion
+def mergesort(cabinet):
+    new_cabinet = []
+    if len(cabinet) == 1:
+        return cabinet
+    else:
+        left = mergesort(cabinet[:math.floor(len(cabinet) / 2)])
+        right = mergesort(cabinet[math.floor(len(cabinet) / 2):])
+        new_cabinet = merge(left, right)
+    return new_cabinet
