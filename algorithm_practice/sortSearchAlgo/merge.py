@@ -56,3 +56,7 @@ def mergesort(cabinet):
         right = mergesort(cabinet[math.floor(len(cabinet) / 2):])
         new_cabinet = merge(left, right)
     return new_cabinet
+
+cabinet = [4,1,3,2,6,3,18,2,9,7,3,1,2.5,-9]
+newcabinet = mergesort(cabinet)
+print(newcabinet)
