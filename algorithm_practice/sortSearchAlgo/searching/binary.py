@@ -8,9 +8,8 @@ looking_for = 5
 guess = math.floor(len(cabinet) / 2)
 
 if cabinet[guess] > looking_for:
-    print("Too High")
+    upperbound = guess
+    guess = math.floor((guess + lowerbound) / 2)
 if cabinet[guess] < looking_for:
-    print("Too Low")
-else:
-    print("Correct!!")
-    
+    lowerbound = guess
+    guess = math.floor((guess + upperbound) / 2)
