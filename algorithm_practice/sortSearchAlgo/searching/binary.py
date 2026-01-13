@@ -15,3 +15,5 @@ def binarysearch(cabinet, looking_for):
             lowerbound = guess
             guess = math.floor((guess + upperbound) / 2)
     return guess
+
+print(binarysearch(cabinet, 8))
